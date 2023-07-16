@@ -1,3 +1,4 @@
+import { useLayoutEffect } from "react"
 import { MEALS, CATEGORIES } from "../data/dummy-data"
 import { View, Text, StyleSheet, FlatList } from "react-native"
 
@@ -8,10 +9,28 @@ function MealsOverviewScreen({ navigation, route }) {
 
     const catId = route.params.categoryId
 
-    const category = CATEGORIES.filter(category => category.id.indexOf(catId) >= 0)[0]
-
+    
+    
     const displayedMeals = MEALS.filter(mealItem => mealItem.categoryIds.indexOf(catId) >= 0)
+    
+    
+    useLayoutEffect(() => {
+        console.log('hola miundo')
+        console.log('hola miundo')
+        console.log('hola miundo')
+        console.log('hola miundo')
+        console.log('hola miundo')
+        const category = CATEGORIES.find(category => category.id == catId)
+        console.log(category)
+        const categoryTitle = category.title
+        
+        navigation.setOptions({
+            title: categoryTitle
+        })
 
+    }, [catId, navigation])
+
+    
     function renderMealItem(itemData){
 
         const item = itemData.item
@@ -29,7 +48,7 @@ function MealsOverviewScreen({ navigation, route }) {
 
     return (
         <View style={styles.container}>
-            {/* <Text>{category.title}</Text> */}
+            {/* <Text>{categoryTitle}</Text> */}
 
 
             {/* {displayedMeals.map( obj => <Text key={obj.id}>{obj.title}</Text> )} */}
