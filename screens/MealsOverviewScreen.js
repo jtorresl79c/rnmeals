@@ -8,18 +8,10 @@ import MealItem from "../components/MealItem"
 function MealsOverviewScreen({ navigation, route }) {
 
     const catId = route.params.categoryId
-
-    
-    
     const displayedMeals = MEALS.filter(mealItem => mealItem.categoryIds.indexOf(catId) >= 0)
     
     
     useLayoutEffect(() => {
-        console.log('hola miundo')
-        console.log('hola miundo')
-        console.log('hola miundo')
-        console.log('hola miundo')
-        console.log('hola miundo')
         const category = CATEGORIES.find(category => category.id == catId)
         console.log(category)
         const categoryTitle = category.title
@@ -28,7 +20,13 @@ function MealsOverviewScreen({ navigation, route }) {
             title: categoryTitle
         })
 
-    }, [catId, navigation])
+    }, [catId, navigation]) 
+
+    function onPressMealItemHandler(mealId){
+        navigation.navigate('MealDetail', {
+            mealId
+        })
+    }
 
     
     function renderMealItem(itemData){
@@ -40,7 +38,8 @@ function MealsOverviewScreen({ navigation, route }) {
             imageUrl: item.imageUrl,
             duration: item.duration,
             complexity: item.complexity,
-            affordability: item.affordability
+            affordability: item.affordability,
+            onPress: onPressMealItemHandler.bind(this,item.id)
         }
 
         return <MealItem { ...mealItemProps }/>
