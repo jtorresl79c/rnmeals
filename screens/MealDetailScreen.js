@@ -1,5 +1,5 @@
 import { useLayoutEffect } from "react"
-import { View, Text, StyleSheet, Image, ScrollView } from "react-native"
+import { View, Text, StyleSheet, Image, ScrollView, Button } from "react-native"
 import { MEALS } from "../data/dummy-data"
 import MealDetails from "../components/MealDetails"
 
@@ -7,22 +7,36 @@ import Subtitle from "../components/MealDetail/Subtitle"
 import List from "../components/MealDetail/List"
 
 function MealDetailsScreen({ navigation, route }) {
-    // console.log(route.params.mealId)
     const mealId = route.params.mealId
 
     const mealItem = MEALS.find(meal => meal.id === mealId)
 
 
-    useLayoutEffect(() => {
-        // const category = CATEGORIES.find(category => category.id == catId)
-        // console.log(category)
-        const mealTitle = mealItem.title
-        
-        navigation.setOptions({
-            title: mealTitle
-        })
+    function headerButtonPressHandler(){
+        console.log('Pressed!!')
+    }
 
-    }, [mealId, navigation])
+    useLayoutEffect( () => {
+        navigation.setOptions({
+            headerRight: () => {
+                return <Button title="Tap me" onPress={headerButtonPressHandler}/>
+            }
+        })
+    } )
+
+
+
+
+
+
+    // useLayoutEffect(() => {
+    //     const mealTitle = mealItem.title
+        
+    //     navigation.setOptions({
+    //         title: mealTitle
+    //     })
+
+    // }, [mealId, navigation])
 
 
 
